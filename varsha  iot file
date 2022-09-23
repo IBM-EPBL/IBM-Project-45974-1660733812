@@ -1,0 +1,82 @@
+// C++ code
+//
+int trig=3;
+int echo=2;
+void setup()
+{
+  pinMode(11, OUTPUT);
+  pinMode(8,OUTPUT);
+  pinMode(7,OUTPUT);
+  pinMode(trig,OUTPUT);
+  pinMode(echo,OUTPUT);
+  Serial.begin(960);
+  pinMode(4,OUTPUT);
+  pinMode(9,OUTPUT);
+  
+}
+
+void loop()
+{
+  
+  digitalWrite(11, HIGH);
+  digitalWrite(8,HIGH);//led builtin
+  delay(1000); // Wait for 1 millisecond(s)
+  digitalWrite(11,HIGH);
+  digitalWrite(7,HIGH);// LED BUILT_IN
+  delay(1000); // Wait for 1000 millisecond(s)
+
+  digitalWrite(trig,LOW);
+  digitalWrite(trig,HIGH);
+   delayMicroseconds(1000);
+   digitalWrite(trig,LOW);
+  float dur = pulseIn(echo,HIGH);
+   float dist=(dur*0.0343)/2;
+   Serial.print("distance :");
+   Serial.print(dist);
+   if(dist>=100)
+   {
+     digitalWrite(4,HIGH);
+   }
+   else
+   {
+     
+     digitalWrite(4,LOW);
+   }
+  
+      //LED ON
+  if(dist>=100)
+  {
+    digitalWrite(8,HIGH);
+    digitalWrite(7,HIGH);
+  }
+
+  //Buzzer For ultrasonic Sensor
+  if(dist>=100)
+  {
+  for(int i=0; i<=30000; i=i+10)
+  {
+  tone(11,i);
+  delay(1000);
+  noTone(11);
+  delay(1000);
+  }
+  }
+
+  
+   //temparature sensor
+  {
+    double a=analogRead(A0);
+    Serial.print("Adc Value:");
+    Serial.println(a);
+    double v= a/1024;
+    double tvolt= v*5;
+    Serial.print("temp value voltage:");
+    Serial.println(tvolt);
+    double o = tvolt-0.5;
+    double t= o*100;
+    Serial.print ("Temperature is :");
+    Serial.println(t);
+  }
+    
+  
+}
