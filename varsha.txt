@@ -1,0 +1,43 @@
+void setup(){
+  Serial.begin(9600);//baud rate=9600
+  pinMode(13,OUTPUT);
+  pinMode(2,OUTPUT);
+  pinMode(4,INPUT);
+  pinMode(1,INPUT);
+  pinMode(5,OUTPUT);
+}
+
+void loop(){
+  digitalWrite(13,HIGH);
+  Serial.println("led is on");
+  delay(1000);
+  digitalWrite(13,LOW);
+  Serial.println("led is off");
+  delay(500);
+  digitalWrite(2,LOW);
+  delayMicroseconds(2);
+  digitalWrite(2,HIGH);
+  delayMicroseconds(10);
+  
+ float duration=pulseIn(4,HIGH); 
+ duration=duration/2;
+  //speed equals distance/time
+  //thus, distance=speed*time
+  //speed of sound=0.034 cm/s
+  float distance=duration*0.034;
+  Serial.print("Distance value: ");
+  Serial.print(distance);
+  Serial.println("cm");
+  int motion=digitalRead(1);
+  if(motion==1){
+    Serial.print("Motion detected");
+  }
+  else{
+    Serial.println("No Motion");
+  }
+  tone(5,100);//pin number, frequency, delay(optional)
+  delay(1000);
+  tone(5,200);
+  delay(1000);
+  
+}
