@@ -1,0 +1,37 @@
+int moistureValue;
+float moisture_percentage;
+
+void setup(){
+  Serial.begin(9600);//baud rate=9600
+  pinMode(12,OUTPUT);
+  pinMode(0,INPUT);
+  pinMode(5,OUTPUT);
+  pinMode(3,OUTPUT);
+}
+
+void loop(){
+  digitalWrite(12,HIGH);
+  Serial.println("led is on");
+  delay(1000);
+  digitalWrite(12,LOW);
+  Serial.println("led is off");
+  delay(500);
+ 
+  int motion=digitalRead(0);
+  if(motion==1){
+    Serial.print("Motion detected");
+  }
+  else{
+    Serial.println("No Motion");
+  }
+   tone(3,100);//pin number, frequency, delay(optional)
+  delay(1000);
+  tone(3,200);
+  delay(1000);
+  moistureValue = analogRead(A0);
+  moisture_percentage = ((moistureValue/539.00)*100);
+  Serial.print("\nMoisture Value : ");
+  Serial.print("");
+  delay(1000);
+  
+}
