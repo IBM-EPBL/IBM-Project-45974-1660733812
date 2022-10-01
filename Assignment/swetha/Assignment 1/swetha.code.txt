@@ -1,0 +1,48 @@
+void setup(){
+  Serial.begin(9600);//braud rate
+  pinMode(11,OUTPUT);
+  pinMode(10,OUTPUT);
+  pinMode(9,OUTPUT);
+  pinMode(2,INPUT);
+  pinMode(12,OUTPUT);
+}
+void loop(){
+  digitalWrite(11,HIGH);
+  digitalWrite(10,HIGH);
+  digitalWrite(9,HIGH);
+  Serial.println(" LED is positive");
+  delay(1000);
+  digitalWrite(11,HIGH);
+  digitalWrite(10,LOW);
+  digitalWrite(9,LOW);
+  Serial.println("LED is negative");
+  delay(500);
+  
+  
+  double data=analogRead(A2);
+  double n=data/1024;
+  double volt=n*5;
+  double off=volt-0.5;
+  double temperature=off*100;
+  Serial.print("Temperature data: ");
+    Serial.println(temperature);
+
+    for(int freq=0;freq<=30000;freq++){
+    tone(12,freq);
+    delay(1000);
+    noTone(12);
+    delay(500);
+    }
+  int motion=digitalRead(2);
+  if(motion==1){
+    Serial.println("Motion detected");
+  }
+  else{
+    Serial.println("No motion");
+  }
+}
+
+    
+    
+     
+  
